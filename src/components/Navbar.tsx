@@ -14,6 +14,7 @@ export function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/tools', label: 'Tools' },
+    { href: '/about', label: 'About' },
   ];
 
   return (
@@ -27,7 +28,7 @@ export function Navbar() {
               <div className="absolute inset-0 blur-lg bg-primary/30 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="font-mono font-bold text-lg text-foreground group-hover:text-primary transition-colors">
-              CyberNinja<span className="text-primary">Tools</span>
+              ESPECTRO<span className="text-primary"> FEDERAL</span>
             </span>
           </Link>
 

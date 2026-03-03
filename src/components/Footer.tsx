@@ -11,12 +11,12 @@ export function Footer() {
             <Link to="/" className="flex items-center gap-2 mb-4">
               <Shield className="h-6 w-6 text-primary" />
               <span className="font-mono font-bold text-foreground">
-                CyberNinja<span className="text-primary">Tools</span>
+                ESPECTRO<span className="text-primary"> FEDERAL</span>
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-sm">
-              Professional cybersecurity tools for ethical hackers, security researchers, 
-              and blue team professionals. All tools are vetted for quality and effectiveness.
+              Professional cybersecurity tools by ESPECTRO FEDERAL — ethical hacker, 
+              penetration tester, and security researcher. All tools are battle-tested and effective.
             </p>
           </div>
 
@@ -61,7 +61,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} CyberNinja Tools. All rights reserved.
+            © {new Date().getFullYear()} ESPECTRO FEDERAL. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
