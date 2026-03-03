@@ -28,7 +28,8 @@ export function Navbar() {
               <div className="absolute inset-0 blur-lg bg-primary/30 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="font-mono font-bold text-lg text-foreground group-hover:text-primary transition-colors">
-              ESPECTRO<span className="text-primary"> FEDERAL</span>
+              <span className="animate-pulse text-primary drop-shadow-[0_0_8px_hsl(0,85%,50%)]">ESPECTRO</span>
+              <span className="animate-pulse text-accent drop-shadow-[0_0_8px_hsl(120,100%,40%)]"> FEDERAL</span>
             </span>
           </Link>
 

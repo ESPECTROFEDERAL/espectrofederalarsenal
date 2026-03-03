@@ -103,9 +103,9 @@ export default {
         "slide-up": "slide-up 0.5s ease-out",
       },
       boxShadow: {
-        "neon": "0 0 20px hsl(185 100% 50% / 0.3)",
-        "neon-strong": "0 0 40px hsl(185 100% 50% / 0.5)",
-        "glow": "0 0 40px hsl(185 100% 50% / 0.2)",
+        "neon": "0 0 20px hsl(0 85% 50% / 0.3)",
+        "neon-strong": "0 0 40px hsl(0 85% 50% / 0.5)",
+        "glow": "0 0 40px hsl(0 85% 50% / 0.2)",
       },
     },
   },
