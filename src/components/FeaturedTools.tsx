@@ -13,9 +13,10 @@ export function FeaturedTools() {
     <section className="py-20">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
           className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-12"
         >
           <div>
