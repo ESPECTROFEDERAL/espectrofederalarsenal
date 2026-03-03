@@ -1,13 +1,26 @@
+import { motion } from 'framer-motion';
 import { Shield, Github, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-card/50 backdrop-blur-sm">
+    <motion.footer
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8 }}
+      className="border-t border-border/50 bg-card/50 backdrop-blur-sm"
+    >
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="md:col-span-2"
+          >
             <Link to="/" className="flex items-center gap-2 mb-4">
               <Shield className="h-6 w-6 text-primary" />
               <span className="font-mono font-bold text-foreground">
@@ -18,10 +31,15 @@ export function Footer() {
               Professional cybersecurity tools by ESPECTRO FEDERAL — ethical hacker, 
               penetration tester, and security researcher. All tools are battle-tested and effective.
             </p>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
@@ -40,10 +58,15 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Legal */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
             <h4 className="font-semibold text-foreground mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
@@ -56,10 +79,16 @@ export function Footer() {
                 <span className="text-sm text-muted-foreground">Refund Policy</span>
               </li>
             </ul>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4"
+        >
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} ESPECTRO FEDERAL. All rights reserved.
           </p>
@@ -71,8 +100,8 @@ export function Footer() {
               <Github className="h-5 w-5" />
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

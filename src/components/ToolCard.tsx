@@ -27,9 +27,10 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
       className="group relative"
     >
       <div className="relative overflow-hidden rounded-lg border border-border bg-card card-hover">
