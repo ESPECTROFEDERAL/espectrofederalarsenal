@@ -68,6 +68,51 @@
     --shadow-card: 0 4px 30px hsl(0 0% 0% / 0.6);
   }
 
+  /* Light mode - Clean professional look inspired by reference */
+  .light {
+    --background: 220 20% 97%;
+    --foreground: 220 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 15%;
+
+    --primary: 220 70% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 30% 30%;
+
+    --muted: 220 15% 94%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 200 80% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 90%;
+    --ring: 220 70% 25%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 30% 30%;
+    --sidebar-primary: 220 70% 25%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 95%;
+    --sidebar-accent-foreground: 220 30% 15%;
+    --sidebar-border: 220 15% 88%;
+    --sidebar-ring: 220 70% 25%;
+
+    --glow-cyan: 220 70% 25%;
+    --glow-green: 200 80% 50%;
+    --glow-purple: 260 60% 50%;
+    --glow-orange: 30 80% 50%;
+  }
+
   .dark {
     --background: 240 15% 4%;
     --foreground: 120 60% 90%;
@@ -82,17 +127,27 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
+  }
+
+  .dark body,
+  body:has(:root.dark) {
     background-image: 
       radial-gradient(ellipse at 50% 0%, hsl(0 85% 50% / 0.04) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 80%, hsl(120 100% 40% / 0.02) 0%, transparent 40%);
     background-attachment: fixed;
   }
 
+  .light body {
+    background-image: 
+      radial-gradient(ellipse at 50% 0%, hsl(220 70% 25% / 0.03) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
   /* Cyber grid pattern */
   .cyber-grid {
     background-image: 
-      linear-gradient(hsl(0 85% 50% / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(0 85% 50% / 0.04) 1px, transparent 1px);
+      linear-gradient(hsl(var(--primary) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.04) 1px, transparent 1px);
     background-size: 50px 50px;
   }
 }
