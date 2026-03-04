@@ -7,7 +7,7 @@ import { useAuth, useIsAdmin } from '@/hooks/useAuth';
 
 export default function AdminLayout() {
   const { user, loading: authLoading, signOut } = useAuth();
-  const { data: isAdmin, isLoading: adminLoading } = useIsAdmin();
+  const { data: isAdmin, isLoading: adminLoading } = useIsAdmin(user?.id);
   const navigate = useNavigate();
   const location = useLocation();
 

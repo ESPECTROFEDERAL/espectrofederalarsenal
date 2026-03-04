@@ -64,23 +64,21 @@ export function useAuth() {
   };
 }
 
-export function useIsAdmin() {
-  const { user } = useAuth();
-  
+export function useIsAdmin(userId?: string) {
   return useQuery({
-    queryKey: ['is-admin', user?.id],
+    queryKey: ['is-admin', userId],
     queryFn: async () => {
-      if (!user) return false;
+      if (!userId) return false;
       
       const { data, error } = await supabase
         .from('user_roles')
         .select('role')
-        .eq('user_id', user.id)
+        .eq('user_id', userId)
         .maybeSingle();
       
       if (error) return false;
       return data?.role === 'admin' || data?.role === 'superadmin';
     },
-    enabled: !!user,
+    enabled: !!userId,
   });
 }

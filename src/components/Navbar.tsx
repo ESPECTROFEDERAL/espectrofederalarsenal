@@ -9,7 +9,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { user, signOut } = useAuth();
-  const { data: isAdmin } = useIsAdmin();
+  const { data: isAdmin } = useIsAdmin(user?.id);
 
   const navLinks = [
     { href: '/', label: 'Home' },
