@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Menu, X, Lock } from 'lucide-react';
+import { Shield, Menu, X, Lock, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth, useIsAdmin } from '@/hooks/useAuth';
+import { useTheme } from '@/hooks/useTheme';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { user, signOut } = useAuth();
   const { data: isAdmin } = useIsAdmin(user?.id);
+  const { theme, toggleTheme } = useTheme();
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -62,6 +64,14 @@ export function Navbar() {
                 Admin
               </Link>
             )}
+
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
 
             {user ? (
               <Button variant="ghost" size="sm" onClick={signOut}>
@@ -121,6 +131,14 @@ export function Navbar() {
                   Admin
                 </Link>
               )}
+
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </button>
 
               {user ? (
                 <Button variant="ghost" size="sm" onClick={signOut} className="w-fit">
