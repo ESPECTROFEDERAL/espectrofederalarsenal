@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Shield, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,9 +16,17 @@ export default function AdminLoginPage() {
   const [error, setError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // If already logged in, redirect to admin
+  useEffect(() => {
+    if (user) {
+      navigate('/admin', { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,11 +43,13 @@ export default function AdminLoginPage() {
         setIsSignUp(false);
       } else {
         await signIn(email, password);
+        // Invalidate admin query so it refetches with new session
+        await queryClient.invalidateQueries({ queryKey: ['is-admin'] });
         toast({
           title: 'Welcome back!',
           description: 'Successfully logged in.',
         });
-        navigate('/admin');
+        navigate('/admin', { replace: true });
       }
     } catch (err: any) {
       setError(err.message || 'Something went wrong');
