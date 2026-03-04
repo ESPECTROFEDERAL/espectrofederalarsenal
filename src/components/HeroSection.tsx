@@ -18,23 +18,31 @@ export function HeroSection() {
         <div className="absolute inset-0 cyber-grid opacity-30" />
       </div>
 
-      {/* Floating Elements */}
+      {/* Floating Elements - Aligned perpendicular on both sides */}
       <motion.div
-        animate={{ y: [-10, 10, -10] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 left-[10%] hidden lg:block"
+        animate={{ 
+          y: [-15, 15, -15],
+          rotate: [0, 10, -10, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/2 -translate-y-1/2 left-[8%] hidden lg:block"
       >
-        <div className="p-4 rounded-lg border border-primary/30 bg-card/50 backdrop-blur-sm">
+        <div className="p-4 rounded-lg border border-primary/30 bg-card/50 backdrop-blur-sm shadow-neon">
           <Terminal className="h-8 w-8 text-primary" />
         </div>
       </motion.div>
 
       <motion.div
-        animate={{ y: [10, -10, 10] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/3 right-[15%] hidden lg:block"
+        animate={{ 
+          y: [15, -15, 15],
+          rotate: [0, -10, 10, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+        className="absolute top-1/2 -translate-y-1/2 right-[8%] hidden lg:block"
       >
-        <div className="p-4 rounded-lg border border-accent/30 bg-card/50 backdrop-blur-sm">
+        <div className="p-4 rounded-lg border border-accent/30 bg-card/50 backdrop-blur-sm shadow-[0_0_20px_hsl(var(--accent)/0.3)]">
           <Lock className="h-8 w-8 text-accent" />
         </div>
       </motion.div>
