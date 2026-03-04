@@ -13,8 +13,9 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
   
-  const { signIn } = useAuth();
+  const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -24,14 +25,23 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      await signIn(email, password);
-      toast({
-        title: 'Welcome back!',
-        description: 'Successfully logged in.',
-      });
-      navigate('/admin');
+      if (isSignUp) {
+        await signUp(email, password);
+        toast({
+          title: 'Account created!',
+          description: 'Please check your email to verify your account.',
+        });
+        setIsSignUp(false);
+      } else {
+        await signIn(email, password);
+        toast({
+          title: 'Welcome back!',
+          description: 'Successfully logged in.',
+        });
+        navigate('/admin');
+      }
     } catch (err: any) {
-      setError(err.message || 'Invalid credentials');
+      setError(err.message || 'Something went wrong');
     } finally {
       setIsLoading(false);
     }
@@ -54,9 +64,11 @@ export default function AdminLoginPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
               <Shield className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">Admin Access</h1>
+            <h1 className="text-2xl font-bold text-foreground">
+              {isSignUp ? 'Create Account' : 'Admin Access'}
+            </h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Sign in to manage your cyber tools
+              {isSignUp ? 'Sign up for a new account' : 'Sign in to manage your cyber tools'}
             </p>
           </div>
 
@@ -109,11 +121,20 @@ export default function AdminLoginPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Signing in...
+                  {isSignUp ? 'Creating account...' : 'Signing in...'}
                 </>
               ) : (
-                'Sign In'
+                isSignUp ? 'Sign Up' : 'Sign In'
               )}
+            </Button>
+
+            <Button
+              type="button"
+              variant="ghost"
+              className="w-full text-muted-foreground hover:text-primary"
+              onClick={() => { setIsSignUp(!isSignUp); setError(''); }}
+            >
+              {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
             </Button>
           </form>
 
