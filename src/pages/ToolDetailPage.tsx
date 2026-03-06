@@ -1,5 +1,6 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { SEOHead } from '@/components/SEOHead';
 import { 
   ArrowLeft, 
   ExternalLink, 
@@ -67,6 +68,26 @@ export default function ToolDetailPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={tool.name}
+        description={tool.short_description}
+        canonical={`https://espectrofederal.lovable.app/tools/${tool.id}`}
+        type="product"
+        image={tool.image_url || undefined}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": tool.name,
+          "description": tool.full_description || tool.short_description,
+          "image": tool.image_url || "",
+          "offers": {
+            "@type": "Offer",
+            "price": tool.price,
+            "priceCurrency": "ZAR",
+            "availability": tool.status === 'available' ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+          },
+        }}
+      />
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
