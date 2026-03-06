@@ -8,10 +8,10 @@ function SnowParticles() {
     Array.from({ length: 40 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 4 + 2,
+      size: Math.random() * 8 + 4,
       duration: Math.random() * 6 + 4,
       delay: Math.random() * 5,
-      opacity: Math.random() * 0.5 + 0.2,
+      opacity: Math.random() * 0.3 + 0.05,
       drift: (Math.random() - 0.5) * 60,
     })),
     []
