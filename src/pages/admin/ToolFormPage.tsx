@@ -18,6 +18,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import type { ToolCategory, ToolStatus } from '@/types/tool';
 import { categoryLabels } from '@/types/tool';
+import { toolFormSchema, validateImageFile, sanitizeFileName } from '@/lib/validation';
 
 const categories: ToolCategory[] = [
   'pentesting',
@@ -85,6 +86,12 @@ export default function ToolFormPage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const validation = validateImageFile(file);
+      if (!validation.valid) {
+        toast({ title: 'Invalid image', description: validation.error, variant: 'destructive' });
+        e.target.value = '';
+        return;
+      }
       setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -93,12 +100,14 @@ export default function ToolFormPage() {
   const uploadImage = async (): Promise<string | null> => {
     if (!imageFile) return existingTool?.image_url || null;
 
-    const fileExt = imageFile.name.split('.').pop();
-    const fileName = `${Date.now()}.${fileExt}`;
+    const fileName = sanitizeFileName(imageFile.name);
 
     const { error: uploadError } = await supabase.storage
       .from('tool-images')
-      .upload(fileName, imageFile);
+      .upload(fileName, imageFile, {
+        contentType: imageFile.type,
+        cacheControl: '3600',
+      });
 
     if (uploadError) throw uploadError;
 
@@ -111,6 +120,18 @@ export default function ToolFormPage() {
     setUploading(true);
 
     try {
+      // Validate form data with Zod
+      const validation = toolFormSchema.safeParse(formData);
+      if (!validation.success) {
+        const firstError = validation.error.errors[0];
+        toast({
+          title: 'Validation Error',
+          description: firstError.message,
+          variant: 'destructive',
+        });
+        setUploading(false);
+        return;
+      }
       const imageUrl = await uploadImage();
       const filteredFeatures = formData.features.filter((f) => f.trim());
 

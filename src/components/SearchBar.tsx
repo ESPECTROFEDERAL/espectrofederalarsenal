@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { sanitizeSearchQuery } from '@/lib/validation';
 
 interface SearchBarProps {
   value: string;
@@ -15,7 +16,7 @@ export function SearchBar({ value, onChange, placeholder = 'Search tools...' }: 
   // Debounce search
   useEffect(() => {
     const timer = setTimeout(() => {
-      onChange(localValue);
+      onChange(sanitizeSearchQuery(localValue));
     }, 300);
 
     return () => clearTimeout(timer);
@@ -32,7 +33,7 @@ export function SearchBar({ value, onChange, placeholder = 'Search tools...' }: 
       <Input
         type="text"
         value={localValue}
-        onChange={(e) => setLocalValue(e.target.value)}
+        onChange={(e) => setLocalValue(e.target.value.substring(0, 100))}
         placeholder={placeholder}
         className="pl-10 pr-10 bg-secondary/30 border-border focus:border-primary focus:ring-primary/20"
       />
