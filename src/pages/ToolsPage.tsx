@@ -7,6 +7,7 @@ import { Footer } from '@/components/Footer';
 import { ToolCard } from '@/components/ToolCard';
 import { CategoryFilter } from '@/components/CategoryFilter';
 import { SearchBar } from '@/components/SearchBar';
+import { SEOHead } from '@/components/SEOHead';
 import { useTools } from '@/hooks/useTools';
 import type { ToolCategory } from '@/types/tool';
 
@@ -30,6 +31,11 @@ export default function ToolsPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Cybersecurity Tools"
+        description="Browse premium ethical hacking and cybersecurity tools. Pentesting, OSINT, forensics, network security and more."
+        canonical="https://espectrofederal.lovable.app/tools"
+      />
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">

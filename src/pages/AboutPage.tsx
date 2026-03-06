@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
+import { SEOHead } from '@/components/SEOHead';
 import { Shield, Target, Eye, Terminal, Wifi, Lock, Bug, Globe } from 'lucide-react';
 
 const expertise = [
@@ -17,6 +18,11 @@ const expertise = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="About"
+        description="Learn about ESPECTRO FEDERAL — professional ethical hacker specializing in penetration testing, OSINT, network security, and exploit development."
+        canonical="https://espectrofederal.lovable.app/about"
+      />
       <Navbar />
       <main className="pt-24 pb-20">
         <div className="container mx-auto px-4">
