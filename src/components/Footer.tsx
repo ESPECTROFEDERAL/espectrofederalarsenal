@@ -1,6 +1,50 @@
 import { motion } from 'framer-motion';
 import { Shield, Github, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
+
+function SnowParticles() {
+  const particles = useMemo(() =>
+    Array.from({ length: 40 }, (_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      size: Math.random() * 4 + 2,
+      duration: Math.random() * 6 + 4,
+      delay: Math.random() * 5,
+      opacity: Math.random() * 0.5 + 0.2,
+      drift: (Math.random() - 0.5) * 60,
+    })),
+    []
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full bg-foreground/20"
+          style={{
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            top: -10,
+          }}
+          animate={{
+            y: ['0%', '800px'],
+            x: [0, p.drift, 0],
+            opacity: [0, p.opacity, p.opacity, 0],
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function Footer() {
   return (
@@ -9,8 +53,9 @@ export function Footer() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8 }}
-      className="border-t border-border/50 bg-card/50 backdrop-blur-sm"
+      className="relative border-t border-border/50 bg-card/50 backdrop-blur-sm"
     >
+      <SnowParticles />
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
