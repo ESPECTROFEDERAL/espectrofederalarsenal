@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { loginRateLimiter } from '@/lib/validation';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -31,6 +32,15 @@ export default function AdminLoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    // Rate limiting check
+    const { limited, retryAfterMs } = loginRateLimiter.isRateLimited(email);
+    if (limited) {
+      const minutes = Math.ceil((retryAfterMs || 0) / 60000);
+      setError(`Too many login attempts. Try again in ${minutes} minute${minutes > 1 ? 's' : ''}.`);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -43,7 +53,7 @@ export default function AdminLoginPage() {
         setIsSignUp(false);
       } else {
         await signIn(email, password);
-        // Invalidate admin query so it refetches with new session
+        loginRateLimiter.reset(email); // Reset on success
         await queryClient.invalidateQueries({ queryKey: ['is-admin'] });
         toast({
           title: 'Welcome back!',
